@@ -27,6 +27,9 @@ jobs:
     steps:
       - name: stopping previous running container
         run: docker stop nodejs-app-container
+
+      - name: removing previous running container
+        run: docker rm nodejs-app-container
               
       - name: Pull image from docker hub
         run: docker pull yashsojitra/gymbuddy-nodejs:latest
