@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 
 app.use("/api/workouts", workoutRoutes)
 app.use("/api/user", userRoutes)
-app.use("/verify", verifyRoutes)
+app.use("/api/verify", verifyRoutes)
 
 app.get("/", (req, res) => {
     res.send("hello from github actions")

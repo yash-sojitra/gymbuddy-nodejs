@@ -21,7 +21,7 @@ function sendMail(email, uniqueString) {
         from: sender,
         to: email,
         subject: "verification email",
-        html: `Press <a href="http://localhost:4000/verify/mail/${uniqueString}">here</a> to verify your email`
+        html: `Press <a href="http://localhost:4000/api/verify/mail/${uniqueString}">here</a> to verify your email`
     }
 
     transport.sendMail(mailOptions, (err, res) => {
