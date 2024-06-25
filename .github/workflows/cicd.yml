@@ -32,3 +32,4 @@ jobs:
           options: -d --name nodejs-app-container -p 4000:4000 \
                    -e MONGO_URI='${{secrets.MONGO_URI}}' \
                    -e PORT='${{secrets.PORT}}'
+          run: node server.js
