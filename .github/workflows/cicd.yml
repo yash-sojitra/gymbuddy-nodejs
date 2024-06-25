@@ -25,11 +25,8 @@ jobs:
     needs: build
     runs-on: self-hosted
     steps:
-      - name: Pull and run Docker container
-        uses: addnab/docker-run-action@v3
-        with:
-          image: yashsojitra/gymbuddy-nodejs:latest
-          options: -d --name nodejs-app-container -p 4000:4000 \
-                   -e MONGO_URI='${{secrets.MONGO_URI}}' \
-                   -e PORT='${{secrets.PORT}}'
-          run: node server.js
+      - name: Pull image from docker hub
+        run: docker pull yashsojitra/gymbuddy-nodejs:latest
+
+      - name: run docker container
+        run: docker run -d -p 4000:4000 --name nodejs-app-container -e MONGO_URI='${{secrets.MONGO_URI}}' -e PORT=${{secrets.PORT}} yashsojitra/gymbuddy-nodejs
