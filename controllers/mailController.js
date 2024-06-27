@@ -9,10 +9,10 @@ const mailVerify = async (req, res) => {
     if (user) {
         user.isValid = true
         await user.save()
-        res.json({info:"user verified Successfully"})
+        res.send("verification was successful")
     }
     else{
-        res.json("User not found")
+        res.send("User not found")
     }
 
 }

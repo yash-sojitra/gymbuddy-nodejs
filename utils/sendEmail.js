@@ -1,8 +1,9 @@
 const nodemailer = require('nodemailer');
 
-function sendMail(email, uniqueString) {
+async function sendMail(email, uniqueString) {
 
     /// returns true if sending mail is successful
+    let status = false;
 
     var transport = nodemailer.createTransport({
         host: 'smtp.gmail.com',
@@ -16,24 +17,27 @@ function sendMail(email, uniqueString) {
     })
 
     var mailOptions
+    let addr = process.env.IP
     let sender = "Yash Sojitra"
     mailOptions = {
         from: sender,
         to: email,
         subject: "verification email",
-        html: `Press <a href="http://localhost:4000/api/verify/mail/${uniqueString}">here</a> to verify your email`
+        html: `Press <a href="http://${addr}/api/verify/mail/${uniqueString}">here</a> to verify your email`
     }
 
-    transport.sendMail(mailOptions, (err, res) => {
+    await transport.sendMail(mailOptions, (err, res) => {
 
         if (err) {
             console.log("=>nodemailer err", err);
             throw Error("Error sending Mail");
         } else {
             console.log("mail sent");
-            return true
+            status = true
         }
     })
+    return status
+
 }
 
 module.exports = sendMail

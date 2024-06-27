@@ -34,9 +34,9 @@ const signupUser = async (req, res) => {
 
     try {
         const user = await User.signup(email, password, uniqueString, isValid)
-        const status = sendMail(email, uniqueString);
-
-        if(status){
+        const status = await sendMail(email, uniqueString);
+        // console.log("verification status", status);
+        if(user){
             res.status(200).json({info: "verification mail sent"})
         }
         // const token = createToken(user._id);
