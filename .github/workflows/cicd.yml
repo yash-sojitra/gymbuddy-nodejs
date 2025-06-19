@@ -32,11 +32,17 @@ jobs:
           echo "Host IP Address: $HOST_IP"
           echo "HOST_IP=$HOST_IP" >> $GITHUB_ENV
 
-      - name: stopping previous running container
-        run: docker stop nodejs-app-container
-
-      - name: removing previous running container
-        run: docker rm nodejs-app-container
+      - name: Stop previous running container if exists
+        run: |
+          if [ "$(docker ps -q -f name=nodejs-app-container)" ]; then
+            docker stop nodejs-app-container
+          fi
+      
+      - name: Remove previous container if exists
+        run: |
+          if [ "$(docker ps -a -q -f name=nodejs-app-container)" ]; then
+            docker rm nodejs-app-container
+          fi
               
       - name: Pull image from docker hub
         run: docker pull yashsojitra/gymbuddy-nodejs:latest
